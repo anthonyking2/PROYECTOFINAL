@@ -4,9 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./main.js" defer></script>
+    <script src="./render.js" defer></script>
+    <script src="./stay.js" defer></script>
+    <link rel="stylesheet" href="./output.css">
     <title>Document</title>
 </head>
-<body>
-    
+    <body class="bg-white text-gray-800 font-sans">
+  <header class="p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Windbnb</h1>
+      <div>
+        <input id="city-input" type="text" placeholder="Ciudad" class="border p-2 rounded" />
+        <input id="guests-input" type="number" min="1" placeholder="Huéspedes" class="border p-2 rounded" />
+        <button id="search-btn" class="bg-red-500 text-white p-2 rounded">Buscar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="p-4 container mx-auto">
+    <section id="results" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></section>
+  </main>
 </body>
 </html>
