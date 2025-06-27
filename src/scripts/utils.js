@@ -16,11 +16,7 @@ export function filterStays(stays, location, guests) {
 export function renderStays(stays) {
   const container = document.getElementById('stays-container');
   const countElement = document.getElementById('stays-count');
-  
-  // Actualizar contador
   countElement.textContent = `${stays.length}+ stays`;
-  
-  // Renderizar tarjetas
   container.innerHTML = stays.map(stay => `
     <div class="bg-white rounded-xl overflow-hidden shadow-md">
       <img src="${stay.photo}" alt="${stay.title}" class="w-full h-48 object-cover">
@@ -30,7 +26,7 @@ export function renderStays(stays) {
           <span class="flex items-center text-sm text-red-500">★ ${stay.rating}</span>
         </div>
         <p class="text-gray-500 text-sm mt-1">${stay.type} · ${stay.beds || 'No'} beds</p>
+        </div>
       </div>
-    </div>
   `).join('');
 }

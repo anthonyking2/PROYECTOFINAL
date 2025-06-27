@@ -1,40 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Windbnb Clone</title>
+  <title>Windbnb</title>
   <link rel="stylesheet" href="./src/styles/output.css">
-  <script src="./stays.js" defer></script>
-  <script type="module" src="./main.js"></script>
-
+  <script src="./src/scripts/stays.js" defer></script>
+  <script type="module" src="./src/scripts/main.js"></script>
 </head>
+
 <body class="font-sans text-gray-800 bg-white">
 
-  <!-- Header -->
-  <header class="flex justify-between items-center p-6 shadow-md">
-    <img src="./src/images/icons/logo-f7862584.svg" alt="Windbnb logo" class="h-6">
-    <div class="border rounded-full shadow flex items-center px-4 py-2 gap-4 cursor-pointer">
-      <span class="text-sm">Anywhere</span>
-      <span class="border-l h-4"></span>
-      <span class="text-sm">Any week</span>
-      <span class="border-l h-4"></span>
-      <span class="text-sm text-gray-400">Add guests</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M10.5 3a7.5 7.5 0 015.95 12.08l5.73 5.73-1.42 1.42-5.73-5.73A7.5 7.5 0 1110.5 3zm0 2a5.5 5.5 0 100 11 5.5 5.5 0 000-11z"/>
-      </svg>
+<!-- /////Header///// -->
+  <header
+    class="flex flex-col md:flex-row md:items-center md:justify-between px-4 pt-6 md:px-12 lg:px-32 max-w-screen-2xl mx-auto gap-6 md:gap-0">
+    <div class="flex items-center mb-4 md:mb-0">
+      <img src="./src/images/icons/logo-f7862584.svg" alt="Windbnb logo" class="h-8 md:h-10">
+    </div>
+    <div id="open-modal" class="w-full md:w-[600px] lg:w-[700px] flex rounded-2xl shadow-md bg-white overflow-hidden border border-gray-200
+          hover:shadow-lg transition cursor-pointer
+          flex-row">
+      <div class="flex flex-1 items-center gap-2 px-5 py-4">
+        <span class="text-sm text-gray-900 font-medium" id="current-location">Add location</span>
+      </div>
+      <div class="w-px bg-gray-200 my-2"></div>
+      <div class="flex flex-1 items-center gap-2 px-5 py-4">
+        <span class="text-sm text-gray-900 font-medium" id="current-guests">Add guests</span>
+      </div>
+      <div class="w-px bg-gray-200 my-2"></div>
+      <div class="flex items-center justify-center px-5 py-4">
+        <button class="p-2 text-red-500">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Result Count -->
-  <section class="px-6 py-4">
-    <p class="text-sm text-gray-500" id="results-count">12+ stays</p>
-    <h1 class="text-xl font-semibold mt-1">Stays in Finland</h1>
-  </section>
+<!-- ///////MODAL/////// -->
+ <div id="search-modal" class="bg-white fixed inset-0 flex items-start justify-center z-50 hidden">
 
-  <!-- Grid de estancias -->
-  <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6 pb-10" id="stays-container">
-    <!-- Aquí se inyectan las tarjetas dinámicamente con JS -->
+    <div
+      class="relative w-full max-w-2xl mx-auto mt-8 bg-white rounded-2xl shadow-lg px-4 py-6 sm:px-8 flex flex-col gap-6">
+      <button id="close-modal"
+        class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold focus:outline-none">
+        &times;
+      </button>
+      <form id="search-form" class="flex flex-row items-center gap-2 w-full">
+        <div class="flex-1 flex flex-col relative">
+          <input id="city" name="city" autocomplete="off"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+            placeholder="Add location" />
+          <div id="location-options"
+            class="absolute z-20 bg-white border border-gray-200 rounded-xl mt-1 shadow-lg w-full hidden"></div>
+        </div>
+        <div class="flex-1 flex flex-col">
+          <input id="guests-summary" readonly
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none bg-gray-50 cursor-pointer"
+            value="Add guests" />
+        </div>
+        <div class="flex items-center h-full">
+          <button type="submit"
+            class="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-xl font-semibold transition text-base shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+            <span>search</span>
+          </button>
+        </div>
+      </form>
+      <div class="w-full flex flex-col items-center gap-6 mt-3">
+        <!-- Adultos -->
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-bold text-base text-gray-800">Adults</span>
+          <span class="text-xs text-gray-400 mb-1">Ages 13 or above</span>
+          <div class="flex items-center gap-2">
+            <button type="button" id="minus-adults"
+              class="border rounded-lg w-8 h-8 flex items-center justify-center text-lg text-gray-500 hover:bg-gray-100">-</button>
+            <span id="adults-count" class="px-4 text-lg font-semibold">0</span>
+            <button type="button" id="plus-adults"
+              class="border rounded-lg w-8 h-8 flex items-center justify-center text-lg text-gray-500 hover:bg-gray-100">+</button>
+          </div>
+        </div>
+        <!-- Niños -->
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-bold text-base text-gray-800">Children</span>
+          <span class="text-xs text-gray-400 mb-1">Ages 12 or below</span>
+          <div class="flex items-center gap-2">
+            <button type="button" id="minus-children"
+              class="border rounded-lg w-8 h-8 flex items-center justify-center text-lg text-gray-500 hover:bg-gray-100">-</button>
+            <span id="children-count" class="px-4 text-lg font-semibold">0</span>
+            <button type="button" id="plus-children"
+              class="border rounded-lg w-8 h-8 flex items-center justify-center text-lg text-gray-500 hover:bg-gray-100">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="px-4 pt-6 md:px-12 lg:px-32 max-w-screen-2xl mx-auto">
+    <div class="flex justify-between items-center mb-2">
+      <h1 class="text-2xl font-bold">Stays in Finland</h1>
+      <p class="text-sm text-gray-500" id="results-count">12+ stays</p>
+    </div>
+  </section>
+  <main
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4 pb-20 md:px-12 lg:px-32 max-w-screen-2xl mx-auto bg-gray-50 min-h-screen"
+    id="stays-container">
   </main>
 
 </body>
